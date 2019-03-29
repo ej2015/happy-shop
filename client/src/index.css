@@ -12,3 +12,35 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+
+#root {
+  padding: 4rem 0;
+}
+
+.bold {
+  font-weight: bold
+}
+
+.mar-right-20 {
+  margin-right: 20px
+}
+
+.ui.card {
+  box-shadow: none
+}
+
+hr.thick {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: #444;
+  height: 1.5px;
+  border: none;
+  width: 70%;
+  margin-left: 0
+}
+
+.categories .item {
+  cursor: pointer
+}
+
