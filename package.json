@@ -1,0 +1,14 @@
+{
+  "name": "Happy Shop",
+  "license": "MIT",
+  "engines": {
+    "node": "11.2.0",
+    "yarn": "1.9.4"
+  },
+  "scripts": {
+    "build": "yarn --cwd client install && yarn --cwd client build",
+    "deploy": "cp -a client/build/. public/",
+    "heroku-postbuild": "yarn build && yarn deploy"
+  }
+}
+
