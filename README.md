@@ -1,18 +1,27 @@
 # Happy Shop
 
-This is a demo SPA for an online shop.
+A simple SPA for an online shop
 
 ## Setup
 
-This app is created using:
-Rails 5 as backend
-ActiveAdmin for admin panel
-Reactjs for front end
-PostgreSQL as the database
+This app uses:
+* Backend: Rails5 API mode
+* Admin: ActiveAdmin
+* Frontend: ReactJS, Redux
+* Database: PostgreSQL
+* Deployment: Heroku
+
 
 ## Usage
 
-First seed the database. Then you can log in from /admin path.  
+The front end app is located inside /client. In development, you can use 
+```
+rake start
+```
+to start both Rails and React. This script uses Heroku CLI. If you don't have Heroku installed, you can start the apps separately:
+```
+PORT=3000 npm start --prefix client
+PORT=3001 bundle exec rails s
+```
 
-## Try It
-You can try the app at https://tranquil-meadow-37235.herokuapp.com
+You may run seed to setup test data. In development, you can access admin portal at localhost:3001/admin. In production, you can access it at /admin.  
