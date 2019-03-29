@@ -3,6 +3,13 @@ require 'rails_helper'
 RSpec.describe Product, type: :model do
   let (:product) { build :product }
   let (:category) { create :category }
+  let(:memory_store) { ActiveSupport::Cache.lookup_store(:memory_store) } 
+  let(:cache) { Rails.cache }
+
+  before do
+    allow(Rails).to receive(:cache).and_return(memory_store)
+    Rails.cache.clear
+  end
 
   it 'should be valid' do
     expect(product).to be_valid
@@ -39,5 +46,33 @@ RSpec.describe Product, type: :model do
     end
   end
 
-  
+  describe '#named_category_paths' do
+    before do
+      @cat1 = create :category_with_whole_branch
+      @cat2 = create :category_with_whole_branch
+      @p = create :product, name: 'a', categories: Category.all
+    end
+
+    it 'generates names from root to leaf' do
+      expect(@p.named_category_paths).to contain_exactly [@cat1.name, @cat1.children[0].name, @cat1.children[0].children[0].name],  [@cat2.name, @cat2.children[0].name, @cat2.children[0].children[0].name]
+    end
+
+    it 'caches' do
+      @p.named_category_paths
+      expect(cache.instance_variable_get(:@data).keys[0]).to match /products\/[\d-]+\/named_category_paths/
+    end
+  end
+
+  describe '#brand_name' do
+    it 'regurns its brand name' do
+      product.brand = build(:brand, name: 'xxx')
+      expect(product.brand_name).to eq 'xxx'
+    end
+
+    it 'caches' do
+      product.brand_name
+      product.brand = build(:brand, name: 'xxx')
+      expect(product.brand_name).to_not eq 'xxx'
+    end
+  end 
 end

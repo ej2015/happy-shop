@@ -48,3 +48,7 @@ hr.thick {
   text-align: center
 }
 
+.text-capitalize {
+  text-transform: uppercase
+}
+

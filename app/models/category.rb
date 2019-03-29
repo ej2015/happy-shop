@@ -8,6 +8,8 @@ class Category < ApplicationRecord
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validate :max_depth
 
+  after_commit :invalidate_tree_cache
+
   scope :final_categories, -> { at_depth(MAX_DEPTH) }
 
   def childless_categories
@@ -16,7 +18,7 @@ class Category < ApplicationRecord
   end
 
   def self.tree
-    Rails.cache.fetch("#{Category.maximum(:updated_at).to_i}/tree", expires_in: 1.day) do
+    Rails.cache.fetch('categories/tree', expires_in: 1.day) do
       roots.map { |root| root.subtree.arrange_serializable  }.flatten
     end
   end
@@ -24,5 +26,9 @@ class Category < ApplicationRecord
   private
   def max_depth
     errors.add(:parent, 'cannot have children categories') if depth > MAX_DEPTH
+  end
+
+  def invalidate_tree_cache
+    Rails.cache.delete('categories/tree')
   end
 end

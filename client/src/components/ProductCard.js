@@ -12,11 +12,12 @@ const ProductCard = ({ product, handleClick }) => {
   const attr = product.attributes
   return (<Grid.Column>
     <Card
+      className='text-center'
       onClick={() => handleClick(product.id)}
     >
       <Image src={attr.photo} />
       <Card.Content>
-        <Card.Header> {attr.brand_name} </Card.Header>
+        <Card.Header className = 'text-capitalize'> {attr.brand_name} </Card.Header>
         <Card.Meta>
           {titleize(attr.name)}
         </Card.Meta>

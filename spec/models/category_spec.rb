@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Category, type: :model do
   let (:category) { build :category }
+    let(:memory_store) { ActiveSupport::Cache.lookup_store(:memory_store) } 
+  let(:cache) { Rails.cache }
 
   it 'should be valid' do
     expect(category).to be_valid
@@ -55,6 +57,42 @@ RSpec.describe Category, type: :model do
       end
     end
   end
-    
-  
+
+  describe '.tree' do
+  before do
+    allow(Rails).to receive(:cache).and_return(memory_store)
+    Rails.cache.clear
+    @c1 = create :category_with_whole_branch
+    @c2 = create :category_with_whole_branch
+  end
+
+    it 'returns all categories as an array of trees' do
+      expect(described_class.tree.count).to eq 2
+      expect(described_class.tree.first['children'][0]['children'][0]['children'].length).to eq 0
+    end
+
+    it 'caches' do
+      described_class.tree 
+      expect(cache.instance_variable_get(:@data).keys[0]).to eq 'categories/tree'
+    end
+
+    it 'is invalidated when any category is updated' do
+      described_class.tree
+      @c1.update(name: 'cool')
+      expect(described_class.tree.map { |b| b['name'] }).to include 'cool'
+    end
+
+    it 'is invalidated when any category is deleted' do
+      described_class.tree
+      @c1.destroy
+      expect(described_class.tree.count).to eq 1
+    end
+
+    it 'is invalidated when any category is created' do
+      described_class.tree
+      expect(described_class.tree.count).to eq 2
+      create :category
+      expect(described_class.tree.count).to eq 3
+    end 
+  end
 end

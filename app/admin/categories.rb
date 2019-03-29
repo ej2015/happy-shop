@@ -17,7 +17,6 @@ ActiveAdmin.register Category do
       else
         render :new
       end
-
     end
 
     def update
@@ -33,9 +32,6 @@ ActiveAdmin.register Category do
       parent = Category.where(id: permitted_params[:category][:parent]).first
       permitted_params[:category].merge({parent: parent})
     end
-
   end
-
-
 
 end
