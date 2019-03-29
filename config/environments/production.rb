@@ -80,6 +80,11 @@ Rails.application.configure do
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
 
+  Rails.application.routes.default_url_options = {
+   host: 'tranquil-meadow-37235.herokuapp.com',
+   port: 3001,
+  }
+
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 end
