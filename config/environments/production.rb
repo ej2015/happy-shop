@@ -82,7 +82,7 @@ Rails.application.configure do
 
   Rails.application.routes.default_url_options = {
    host: 'tranquil-meadow-37235.herokuapp.com',
-   port: 3001,
+   protocol: 'https'
   }
 
   # Do not dump schema after migrations.
