@@ -10,21 +10,23 @@ const perOptions = [3, 6, 9].map(
 )
 
 const ProductPagination = ({ activePage, totalPages, perPage, handlePageChange, handlePerPageChange }) => (
-    <Grid.Column width={11}>
-      <Dropdown
-        className='mar-right-20'
-        selection
-        compact
-        options={perOptions}
-        defaultValue={perPage}
-        onChange={handlePerPageChange}
-      />
-      <Pagination
-        defaultActivePage={activePage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />
-    </Grid.Column>
+  <Grid.Column width={11}>
+    <Dropdown
+      className='mar-right-20'
+      selection
+      compact
+      options={perOptions}
+      defaultValue={perPage}
+      onChange={handlePerPageChange}
+    />
+    <Pagination
+      defaultActivePage={activePage}
+      totalPages={totalPages}
+      siblingRange={0}
+      boundaryRange={1}
+      onPageChange={handlePageChange}
+    />
+  </Grid.Column>
 )
 
 export default ProductPagination

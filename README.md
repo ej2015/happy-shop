@@ -1,24 +1,18 @@
-# README
+# Happy Shop
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a demo SPA for an online shop.
 
-Things you may want to cover:
+## Setup
 
-* Ruby version
+This app is created using:
+Rails 5 as backend
+ActiveAdmin for admin panel
+Reactjs for front end
+PostgreSQL as the database
 
-* System dependencies
+## Usage
 
-* Configuration
+First seed the database. Then you can log in from /admin path.  
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Try It
+You can try the app at https://tranquil-meadow-37235.herokuapp.com

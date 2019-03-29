@@ -20,6 +20,8 @@ gem 'pry-byebug'
 gem 'money-rails', '~>1.13.1'
 gem 'awesome_print'
 gem 'image_processing', '~> 1.8.0'
+gem 'ffaker'
+gem 'aws-sdk-s3'
 
 #serializer
 gem 'fast_jsonapi'

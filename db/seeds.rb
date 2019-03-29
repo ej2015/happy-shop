@@ -1,12 +1,7 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
+#admin
+AdminUser.create!(email: 'admin@example.com', password: 'pa$$word$', password_confirmation: 'pa$$word$')
 
+#category
 makeup = Category.create name: 'makeup'
 
 face = makeup.children.create name: 'face'
@@ -15,23 +10,28 @@ powder = face.children.create name: 'powder'
 
 eye = makeup.children.create name: 'eye'
 eyeliner = eye.children.create name: 'eyeliner'
+eyeshadow = eyeliner.children.create name: 'eyeshadow'
 
 skin_care = Category.create name: 'skin care'
+mask_treatment = skin_care.children.create name: 'masks & treatments'
+mask = mask_treatment.children.create name: 'mask'
+peel = mask_treatment.children.create name: 'peel'
 
-=begin
-name = { makeup: 1,
-                 face: 101, eye: 102, lip: 103,
-                   contour: 10101, powder: 10102,
-                   eyeliner: 10201, eyeshadow: 10202,
-               skin_care: 2,
-                 mask_treatment: 201, moisturiser: 202,
-                   mask: 20101, peel: 20102,
-                   day_moisturiser: 20201, night_cream: 20202,
-               hair: 3,
-                 styling: 301,
-                   heat_protection: 30101, hair_spray: 30102,
-               man: 4,
-                 man_skin_care: 401,
-                   man_clenser: 40101, man_expoliator: 40102
-  }
-=end
+#brand
+loreal = Brand.create name: 'loreal'
+channel = Brand.create name: 'channel'
+fresh = Brand.create name: 'fresh'
+
+#product
+
+description = 'Sugar Lip Treatment Advanced Therapy is an ultra-nourishing lip treatment proven to significantly boost moisture, enhance volume, and improve the definition of the lip area.'
+
+11.times do
+  Category.final_categories.each do |category|
+    Product.create(name: FFaker::Product.brand, brand: Brand.find(rand 1..3), price_cents: rand(100..10000), categories: [category], description: description)
+  end
+end
+
+Product.all.each do |p|
+  p.photo.attach(io: File.open(Rails.root.join('db', 'seed_attachments', 'shampoo.jpeg')), filename: 'shampoo.jpeg', content_type: 'image/jpeg')
+end

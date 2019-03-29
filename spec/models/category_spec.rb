@@ -14,6 +14,13 @@ RSpec.describe Category, type: :model do
     should validate_uniqueness_of(:name).case_insensitive 
   }
 
+  describe '.final_categories' do
+    it 'only returns categories at max_depth' do
+      p = create :category_with_whole_branch 
+      expect(described_class.final_categories).to contain_exactly p.children.first.children[0]
+    end
+  end
+
   describe '#max_depth' do
     it 'validates max depth' do
       p = create :category_with_whole_branch 
