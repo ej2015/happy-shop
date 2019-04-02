@@ -20,7 +20,7 @@ const ProductPagination = ({ activePage, totalPages, perPage, handlePageChange, 
       onChange={handlePerPageChange}
     />
     <Pagination
-      defaultActivePage={activePage}
+      activePage={activePage}
       totalPages={totalPages}
       siblingRange={0}
       boundaryRange={1}
