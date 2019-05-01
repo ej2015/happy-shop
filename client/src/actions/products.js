@@ -32,11 +32,9 @@ export function fetchProducts() {
         dispatch(fetchProductsSuccess({products: json.data, sort: getState().sorter.selected}))
         dispatch(setTotalNoOfPages(json.meta.total))
         dispatch(showProductGrid())
-        return json.data;
       })
       .catch(error => {
         dispatch(fetchProductsFailure(error))
-        return error
       })
   }
 }

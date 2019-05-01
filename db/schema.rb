@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_22_012017) do
+ActiveRecord::Schema.define(version: 2019_05_01_032046) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,6 +86,13 @@ ActiveRecord::Schema.define(version: 2019_03_22_012017) do
     t.index ["product_id"], name: "index_categories_products_on_product_id"
   end
 
+  create_table "prices", force: :cascade do |t|
+    t.integer "price_cents", null: false
+    t.integer "discounted_price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name", null: false
     t.text "description", null: false
@@ -93,11 +100,14 @@ ActiveRecord::Schema.define(version: 2019_03_22_012017) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "brand_id"
+    t.bigint "prices_id"
     t.index ["brand_id"], name: "index_products_on_brand_id"
     t.index ["name"], name: "index_products_on_name"
     t.index ["price_cents"], name: "index_products_on_price_cents"
+    t.index ["prices_id"], name: "index_products_on_prices_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "products", "brands"
+  add_foreign_key "products", "prices", column: "prices_id"
 end

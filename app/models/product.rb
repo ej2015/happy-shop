@@ -9,16 +9,21 @@ class Product < ApplicationRecord
   has_one_attached :photo
   has_and_belongs_to_many :categories
   belongs_to :brand
+  has_one :price
 
   validates :name, presence: true
   validates :price_cents, presence: true
   validates :description, presence: true, length: { minimum: 50, maximum: 500 }
 
   before_save :categorize
+  after_save :update_price
 
   delegate :final_categories, to: :categories
 
   paginates_per PER_PAGE
+
+  delegates :price_cents, :price
+  delegates :promoted_price, :price
 
   scope :by_prices, ->(prices) {
      where(price_cents: prices)

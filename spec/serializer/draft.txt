@@ -1,0 +1,42 @@
+
+
+User endpoint
+attributes: name, gender, dob, etc.
+
+gender
+"male" and "female"
+> "male", "female", "Male", "Female"
+
+Fix
+Short term Fix
+Long term fix(s)
+
+Short term
+- use serializer to downcase
+
+
+long term
+- user model to down case 
+- suspect data is not sanitize
+- use rake task 
+
+
+Where the problem can come from:
+- Frontend
+- Data import
+
+--------------
+
+Steps by step:
+
+- Issue identified
+1. look at serializer  & db (sampling)
+2. patch serizlier to upcase , deploy
+3. patch model (validation / hook ), deploy
+4. rake task to fix db, deploy & run | async task. 
+5. check user input (source of the input), modify the input form 
+
+
+
+
+- Issue resolved

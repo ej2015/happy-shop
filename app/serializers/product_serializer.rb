@@ -1,6 +1,6 @@
 class ProductSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :name, :price_cents, :description, :named_category_paths, :brand_name 
+  attributes :name, :description, :named_category_paths, :brand_name, :price_cents, :promoted_price
   link :public_url
   attributes :photo do |obj, params|
     if obj.photo.attached?

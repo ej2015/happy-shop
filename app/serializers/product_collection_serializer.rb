@@ -1,16 +1,16 @@
 class ProductCollectionSerializer
-  def initialize(serializer:, paginated:)
-    @serializer = serializer
+  def initialize(paginated:)
+    @serializer = ProductSerializer
     @paginated = paginated
     @options = {}
   end
 
   def serializable_hash 
-    @serializer.new(paginated, options).serializable_hash
+    serializer.new(paginated, options).serializable_hash
   end
 
   private
-  attr_reader :paginated
+  attr_reader :paginated, :serializer
 
   def options
     { meta:

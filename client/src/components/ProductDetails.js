@@ -2,9 +2,16 @@ import React from 'react'
 import { Image, Header, Container, Button, Icon } from 'semantic-ui-react'
 import Breadcrumb from './BreadCrumb'
 
-const Price = price_cents => (
+const Price = (price_cents, promoted_price) => (
   <div className='bold text-center'>
-    ${price_cents / 100}
+    ${promoted_price > 0 }
+    ? <OriginalPrice
+        price = {price_cents}
+      />
+    : <PromotedPrice
+        price = {price_cents}
+        promoted_price = {promoted_price}
+      />
   </div>
 )
 

@@ -11,7 +11,7 @@ RSpec.describe 'products', type: :request do
       allow(ProductPaginator).to receive(:new).with(an_instance_of(ActionDispatch::Request)).and_return(@paginator)
       allow(@paginator).to receive(:call).and_return(@paginated)
       @serializer = instance_double('ProductCollectionSerializer')
-      allow(ProductCollectionSerializer).to receive(:new).with(serializer: ProductSerializer, paginated: @paginated).and_return(@serializer)
+      allow(ProductCollectionSerializer).to receive(:new).with(paginated: @paginated).and_return(@serializer)
       allow(@serializer).to receive(:serializable_hash).and_return(@res)
     end
 

@@ -4,7 +4,7 @@ class ProductsController < ApiController
   # GET /products
   def index
     paginated = ProductPaginator.new(request).call
-    render json: ProductCollectionSerializer.new(serializer: ProductSerializer, paginated: paginated).serializable_hash
+    render json: ProductCollectionSerializer.new(paginated: paginated).serializable_hash
   end
 
   # GET /products/1

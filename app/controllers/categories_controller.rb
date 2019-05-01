@@ -3,7 +3,8 @@ class CategoriesController < ApiController
 
   # GET /categories
   def index
-    render json: CategoryCollectionSerializer.new.serializable_hash
+    paginated = Category.tree
+    render json: CategoryCollectionSerializer.new(paginated: paginated).serializable_hash
   end
 
   # GET /categories/1
